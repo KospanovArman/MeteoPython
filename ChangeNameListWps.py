@@ -1,8 +1,3 @@
-"""
- start_date = '2021-12-04_00:00:00','2021-12-04_00:00:00','2021-12-04_00:00:00',
- end_date   = '2021-12-07_00:00:00','2021-12-07_00:00:00','2021-12-07_00:00:00',
-"""
-
 from ModelDateTime import get_current_modeldatetime, get_next_modeldatetime
 
 filename = '/users/armankospanov/wrf/WPS-4.0/namelist.wps'
