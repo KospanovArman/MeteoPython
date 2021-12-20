@@ -88,7 +88,7 @@ while CurrentModelDateTime <=datetime(year=2021,month=7,day=1):
     #---os.system("ulimit -s unlimited")
     #---os.system("mpirun -np 6 ./wrf.exe")
     print_log("Sleep",LogFileName)
-    time.sleep(2)
+    time.sleep(1)
     print_log("WakeUp", LogFileName)
     os.environ["LD_LIBRARY_PATH"] = "/lib/x86_64-linux-gnu/libz.so.1"
     save_next_modeldatetime()
