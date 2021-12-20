@@ -36,7 +36,7 @@ def print_log(msg,f):
 
 LogFileName = open_log()
 
-while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and CurrentModelDateTime.<=1:
+while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and CurrentModelDateTime.day<=1:
     os.chdir(root)
     os.chdir(root+"/share_frcst")
     print_log("Removing emcf*",LogFileName )
@@ -70,7 +70,7 @@ while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and Cur
         print_log("Changing pl to sfc", LogFileName)
     #---    os.system("link_grib.csh /home/wrf/share_frcst/ecmf_"+YYYYMMDD+"_fc_sfc_*1")
         os.system("ungrib.exe")
-    else
+    else:
         print_log("ошибка. должен был быть заменен блок pl на sfc", LogFileName)
 
     PLorSFC = changePlSfc()
@@ -78,7 +78,7 @@ while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and Cur
         print_log("Changing sfc to pl", LogFileName)
     #---    os.system("link_grib.csh /home/wrf/share_frcst/ecmf_"+YYYYMMDD+"_fc_pl_*1")
     #---    os.system("ungrib.exe")
-    else
+    else:
         print_log("ошибка. должен был быть заменен блок sfc на pl", LogFileName)
     #---os.system("metgrid.exe")
 
