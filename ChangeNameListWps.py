@@ -14,13 +14,13 @@ def changePlSfc():
     f = open(filename,'r')
     for line in f:
         s = line
-        if line.startswith(" prefix = '") :
+        if line.startswith(" prefix = '"):
             l = len(" prefix = '")
             if line[l:l+2] == "PL":
-                s = " prefix = '"+"SFC',\n"
+                s = " prefix = '" + "SFC',\n"
                 res = "SFC"
             else:
-                s = " prefix = '"+"PL',\n"
+                s = " prefix = '" + "PL',\n"
                 res = "PL"
         filetext.append(s)
     f.close()
@@ -39,12 +39,6 @@ def changeDates():
             s = " start_date = " + format_date(CurrentModelDateTime) + "," + format_date(CurrentModelDateTime) + "," + format_date(CurrentModelDateTime)+"\n"
         elif line.startswith(" end_date") :
             s = " end_date   = " + format_date(NextModelDateTime) + "," + format_date(NextModelDateTime) + "," + format_date(NextModelDateTime)+"\n"
-        elif line.startswith(" prefix = '") :
-            l = len(" prefix = '")
-            if line[l:l+2] == "PL":
-                s = " prefix = '"+"SFC',\n"
-            else:
-                s = " prefix = '"+"PL',\n"
         filetext.append(s)
     f.close()
     f = open(filename,'w')

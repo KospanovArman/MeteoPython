@@ -28,29 +28,27 @@ def close_log(f):
 def print_log(msg,f):
     s = str_time(datetime.today())+' : '+msg+'\n'
     f.write(s)
-    if both :
+    if both:
         print(s)
-        f.write(s)
-    else:
-        f.write(s)
 
+os.chdir(root)
 LogFileName = open_log()
 
-while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and CurrentModelDateTime.day<=1:
-    os.chdir(root)
+while CurrentModelDateTime <=datetime(year=2021,month=7,day=1):
+    print_log("Modeling Date&Hour : " + str_time(CurrentModelDateTime), LogFileName)
     os.chdir(root+"/share_frcst")
-    print_log("Removing emcf*",LogFileName )
+    print_log("Removing emcf*",LogFileName)
     #---os.system("rm emcf*.*")
-    print_log("emcf* removed",LogFileName )
+    print_log("emcf* removed",LogFileName)
 
     T2DMMDDHH = "T2D"+"{0:0>2}".format(CurrentModelDateTime.month)+"{0:0>2}".format(CurrentModelDateTime.day)+"{0:0>2}".format(CurrentModelDateTime.hour)
-    print_log("Grib_filter started ",LogFileName )
+    print_log("Grib_filter started ",LogFileName)
     cmd = "grib_filter split.rule "+T2DMMDDHH+"*1"
     #---os.system(cmd)
-    print_log("Grib_filter done ",LogFileName )
+    print_log("Grib_filter done ",LogFileName)
 
     os.chdir(root+"/WPS-4.0")
-    print_log("Removing pl*,sfc*,met_em*",LogFileName )
+    print_log("Removing pl*,sfc*,met_em*",LogFileName)
     #---os.system("rm pl*.*")
     #---os.system("rm sfc*.*")
     #---os.system("rm met_em*.*")
@@ -63,13 +61,12 @@ while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and Cur
     print_log("Changing namelist.wps dates",LogFileName )
     changeDates()
     PLorSFC = changePlSfc()
-
     #---os.system("geogrid.exe")
     YYYYMMDD = str(CurrentModelDateTime.year)+"{0:0>2}".format(CurrentModelDateTime.month)+"{0:0>2}".format(CurrentModelDateTime.day)
     if PLorSFC == "SFC":
         print_log("Changing pl to sfc", LogFileName)
     #---    os.system("link_grib.csh /home/wrf/share_frcst/ecmf_"+YYYYMMDD+"_fc_sfc_*1")
-        os.system("ungrib.exe")
+    # ---   os.system("ungrib.exe")
     else:
         print_log("ошибка. должен был быть заменен блок pl на sfc", LogFileName)
 
@@ -90,9 +87,10 @@ while CurrentModelDateTime.year <=2021 and CurrentModelDateTime.month<=7 and Cur
     #---os.system("screen -r")
     #---os.system("ulimit -s unlimited")
     #---os.system("mpirun -np 6 ./wrf.exe")
-    time.sleep(7200)
+    print_log("Sleep",LogFileName)
+    time.sleep(2)
+    print_log("WakeUp", LogFileName)
     os.environ["LD_LIBRARY_PATH"] = "/lib/x86_64-linux-gnu/libz.so.1"
-
     save_next_modeldatetime()
     CurrentModelDateTime = get_current_modeldatetime()
     NextModelDateTime = get_next_modeldatetime(CurrentModelDateTime)
